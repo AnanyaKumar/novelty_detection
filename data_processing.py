@@ -14,6 +14,13 @@ def compose (*functions):
 def force_to_0_1(x_data):
     return x_data / 255.0
 
+    
+def sphere_normalize(x_data):
+  array = np.zeros(x_data.shape)
+  for i in range(len(x_data)):
+    array[i] = x_data[i] / np.sqrt(np.sum(np.square(x_data[i] * 1.0)))
+  return array
+
 
 def force_to_0_1_binary(x_data):
   return np.round(x_data / 255.0)

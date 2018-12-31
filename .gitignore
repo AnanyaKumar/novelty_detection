@@ -1,1 +1,3 @@
 *.pyc
+notMNIST*
+.DS_STORE
