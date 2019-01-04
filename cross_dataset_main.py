@@ -1,7 +1,7 @@
 """Train novelty detector on one dataset, and test on another dataset."""
 
-from keras.datasets import fashion_mnist
-from keras.datasets import mnist
+from tensorflow.keras.datasets import fashion_mnist
+from tensorflow.keras.datasets import mnist
 import read_notmnist
 import numpy as np
 from scipy.stats import percentileofscore

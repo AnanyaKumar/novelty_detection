@@ -1,8 +1,8 @@
 """Test novelty detector on a single dataset, by splitting on labels."""
 
-from keras.datasets import fashion_mnist
-from keras.datasets import mnist
-from keras.datasets import cifar10
+from tensorflow.keras.datasets import fashion_mnist
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.datasets import cifar10
 import numpy as np
 from scipy.stats import percentileofscore
 

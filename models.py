@@ -1,7 +1,7 @@
 """Models for novelty prediction."""
 
 from bisect import bisect_left
-import keras
+import tensorflow.keras as keras
 import numpy as np
 from scipy.stats import percentileofscore
 from sklearn.neighbors import NearestNeighbors
