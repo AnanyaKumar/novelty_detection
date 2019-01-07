@@ -18,8 +18,8 @@ def rejection_rates_single_dataset(dataset, num_in_domain_labels, label_map, mod
     # Process data.
     x_train = data_processing.force_to_0_1(x_train)
     x_test = data_processing.force_to_0_1(x_test)
-    y_train = np.array(map(label_map, y_train))
-    y_test = np.array(map(label_map, y_test))
+    y_train = np.array(list(map(label_map, y_train)))
+    y_test = np.array(list(map(label_map, y_test)))
     # Filter data.
     def in_domain(label):
         return 0 <= label < num_in_domain_labels
