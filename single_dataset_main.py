@@ -9,6 +9,16 @@ from scipy.stats import percentileofscore
 import data_processing
 import models
 
+# Config
+# Processing function
+# Dataset
+# Train fraction
+# Model generator
+# Rejection Rates
+# Num Trials
+# Train epochs
+# Total labels
+# Num in domain labels
 
 def rejection_rates_single_dataset(dataset, num_in_domain_labels, label_map, model, train_epochs=3,
                                    train_fraction=1.0):
@@ -29,7 +39,6 @@ def rejection_rates_single_dataset(dataset, num_in_domain_labels, label_map, mod
     xs['train'], ys['train'] = data_processing.label_filter(x_train, y_train, in_domain)
     xs['valid'], ys['valid'] = data_processing.label_filter(x_test, y_test, in_domain)
     xs['ood'], ys['ood'] = data_processing.label_filter(x_test, y_test, out_of_domain)
-
     model.train(xs['train'], ys['train'], train_epochs)
     accuracy = model.validate(xs['valid'], ys['valid'])
     confidences, auroc = model.predict(xs['ood'])
@@ -50,7 +59,7 @@ def main():
     for _ in range(num_trials):
         label_permutation = np.random.permutation(range(10))
         label_map = lambda i: label_permutation[i]
-        architecture = models.hendrycks_mnist_model(num_in_domain_labels)
+        architecture = models.papernot_conv_model(num_in_domain_labels)
         model = models.SoftmaxDetector(architecture)
         # def mean_func(x):
         #     dim = len(x.shape)
@@ -61,7 +70,7 @@ def main():
         #     return x.reshape(x.shape[0], -1)
         # model = models.NearestNeighborDetector(mean_func)
         cur_rejection_rates, auroc, accuracy = rejection_rates_single_dataset(
-            mnist, num_in_domain_labels, label_map, model, train_epochs, train_fraction=1.0)
+            cifar10, num_in_domain_labels, label_map, model, train_epochs, train_fraction=1.0)
         metrics['rejection_rates'].append(cur_rejection_rates)
         metrics['accuracies'].append(accuracy)
         metrics['aurocs'].append(auroc)

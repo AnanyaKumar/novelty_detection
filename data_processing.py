@@ -30,7 +30,10 @@ def label_filter(x_data, y_data, filter_func):
     zipped_lists = zip(x_data, y_data)
     filtered_data = [(x, y) for x, y in zipped_lists if filter_func(y)]
     filtered_x, filtered_y = zip(*filtered_data)
-    return np.expand_dims(np.array(filtered_x), axis=3), np.array(filtered_y)
+    filtered_x = np.array(filtered_x)
+    if len(filtered_x.shape) == 3:
+      filtered_x = np.expand_dims(filtered_x, axis=-1)
+    return filtered_x, np.array(filtered_y)
 
 
 def generate_factored(images, num_gen_images):
