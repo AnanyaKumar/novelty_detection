@@ -3,6 +3,7 @@
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.datasets import mnist
 from tensorflow.keras.datasets import cifar10
+from tensorflow.keras.applications.resnet50 import ResNet50
 import numpy as np
 from scipy.stats import percentileofscore
 
@@ -59,7 +60,7 @@ def main():
     for _ in range(num_trials):
         label_permutation = np.random.permutation(range(10))
         label_map = lambda i: label_permutation[i]
-        architecture = models.papernot_conv_model(num_in_domain_labels)
+        architecture = ResNet50(weights=None, input_shape=(32, 32, 3), classes=10)
         model = models.SoftmaxDetector(architecture)
         # def mean_func(x):
         #     dim = len(x.shape)
